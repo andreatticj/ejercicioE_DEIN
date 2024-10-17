@@ -18,7 +18,7 @@ import java.io.IOException;
 
 /**
  * Controlador de la interfaz gráfica de la aplicación que gestiona una tabla de personas.
- * Este controlador permite agregar nuevas personas a la tabla mediante una ventana modal.
+ * Este controlador permite agregar, modificar y eliminar personas en la tabla.
  */
 public class HelloController {
 
@@ -26,10 +26,11 @@ public class HelloController {
     private Button btnAgregarPersona;  // Botón para agregar una nueva persona
 
     @FXML
-    private Button btnEliminar;
+    private Button btnEliminar;  // Botón para eliminar una persona seleccionada
 
     @FXML
-    private Button btnModificar;
+    private Button btnModificar;  // Botón para modificar una persona seleccionada
+
 
     @FXML
     private TableView<Persona> tabla;  // Tabla que muestra la lista de personas
@@ -43,9 +44,8 @@ public class HelloController {
     @FXML
     private TableColumn<Persona, Integer> colEdad;  // Columna para mostrar la edad de la persona
 
-
     /**
-     * Método que inicializa las columnas de la tabla, estableciendo los valores de las propiedades de los objetos Persona.
+     * Inicializa las columnas de la tabla, estableciendo los valores de las propiedades de los objetos Persona.
      */
     @FXML
     public void initialize() {
@@ -62,25 +62,37 @@ public class HelloController {
      */
     @FXML
     void agregarPersona(ActionEvent event) {
-        Window win = ((Button) event.getSource()).getScene().getWindow();
-        ventanaModal("Nueva Persona");  // Llama al método para abrir la ventana modal
-    }
-
-    @FXML
-    void eliminar(ActionEvent event) {
-        
-    }
-
-    @FXML
-    void modificar(ActionEvent event) {
-        Window win = ((Button) event.getSource()).getScene().getWindow();
-        ventanaModal("Editar Persona");  // Llama al método para abrir la ventana modal
+        ventanaModal("Nueva Persona");
     }
 
     /**
-     * Método que abre una ventana modal para agregar una nueva persona.
+     * Evento que se dispara al hacer clic en el botón para eliminar una persona seleccionada.
+     *
+     * @param event Evento de acción que ocurre al hacer clic en el botón
+     */
+    @FXML
+    void eliminar(ActionEvent event) {
+        // Implementación para eliminar una persona de la tabla
+
+    }
+
+    /**
+     * Evento que se dispara al hacer clic en el botón para modificar una persona seleccionada.
+     * Abre una ventana modal para editar los datos de la persona seleccionada.
+     *
+     * @param event Evento de acción que ocurre al hacer clic en el botón
+     */
+    @FXML
+    void modificar(ActionEvent event) {
+        ventanaModal("Editar Persona");
+    }
+
+    /**
+     * Método que abre una ventana modal para agregar o modificar una persona.
      * La ventana se carga desde un archivo FXML, y se pasa la lista de personas
-     * al controlador del modal para que pueda agregar una nueva persona a la tabla.
+     * al controlador del modal para que pueda gestionar los datos.
+     *
+     * @param titulo El título de la ventana modal.
      */
     private void ventanaModal(String titulo) {
         try {
@@ -88,7 +100,7 @@ public class HelloController {
             Parent root = loader.load();
 
             // Obtener el controlador del modal
-            modalEController modalController = loader.getController();
+            ModalEController modalController = loader.getController();
 
             // Pasar la lista de personas al controlador del modal
             modalController.setPersonas(tabla.getItems());

@@ -15,7 +15,7 @@ import javafx.stage.Window;
  * Permite gestionar la información ingresada y agregarla a una lista de personas,
  * o cancelar la operación y cerrar la ventana.
  */
-public class modalEController {
+public class ModalEController {
 
     @FXML
     private Button btnCancelar;  // Botón para cancelar la operación
