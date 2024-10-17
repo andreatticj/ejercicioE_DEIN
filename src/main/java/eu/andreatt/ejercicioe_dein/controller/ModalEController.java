@@ -13,7 +13,7 @@ import javafx.stage.Window;
 /**
  * Controlador de la ventana modal para agregar o modificar una persona.
  * Permite gestionar la información ingresada y agregarla a una lista de personas,
- * o cancelar la operación y cerrar la ventana.
+ * o cancelar la operación y cerrar la ventana modal.
  */
 public class ModalEController {
 
@@ -36,7 +36,7 @@ public class ModalEController {
     private ObservableList<Persona> personas;  // Lista observable que contiene las personas
 
     /**
-     * Establece la lista de personas donde se añadirá la nueva persona.
+     * Establece la lista de personas donde se añadirá o editara la persona.
      *
      * @param personas Lista observable de personas.
      */
@@ -57,7 +57,7 @@ public class ModalEController {
     }
 
     /**
-     * Carga los datos de la persona en los campos de texto para su modificación.
+     * Carga los datos de la persona en los campos de texto de la ventana modal para su modificación.
      *
      * @param persona La persona cuyos datos serán cargados en los campos.
      */
@@ -69,9 +69,9 @@ public class ModalEController {
     }
 
     /**
-     * Maneja el evento de guardar una nueva persona.
-     * Verifica que los datos ingresados sean válidos antes de agregar la persona a la lista.
-     * Si los datos son válidos, agrega la persona y cierra la ventana.
+     * Maneja el evento de guardar o editar una persona.
+     * Verifica que los datos ingresados sean válidos antes de agregar o editar a la persona en la lista.
+     * Si los datos son válidos, agrega o edita la persona y cierra la ventana.
      *
      * @param event El evento que desencadena la acción.
      */
