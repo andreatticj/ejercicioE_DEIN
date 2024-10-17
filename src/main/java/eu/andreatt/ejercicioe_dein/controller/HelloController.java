@@ -26,6 +26,12 @@ public class HelloController {
     private Button btnAgregarPersona;  // Botón para agregar una nueva persona
 
     @FXML
+    private Button btnEliminar;
+
+    @FXML
+    private Button btnModificar;
+
+    @FXML
     private TableView<Persona> tabla;  // Tabla que muestra la lista de personas
 
     @FXML
@@ -36,6 +42,7 @@ public class HelloController {
 
     @FXML
     private TableColumn<Persona, Integer> colEdad;  // Columna para mostrar la edad de la persona
+
 
     /**
      * Método que inicializa las columnas de la tabla, estableciendo los valores de las propiedades de los objetos Persona.
@@ -56,7 +63,18 @@ public class HelloController {
     @FXML
     void agregarPersona(ActionEvent event) {
         Window win = ((Button) event.getSource()).getScene().getWindow();
-        ventanaModal();  // Llama al método para abrir la ventana modal
+        ventanaModal("Nueva Persona");  // Llama al método para abrir la ventana modal
+    }
+
+    @FXML
+    void eliminar(ActionEvent event) {
+        
+    }
+
+    @FXML
+    void modificar(ActionEvent event) {
+        Window win = ((Button) event.getSource()).getScene().getWindow();
+        ventanaModal("Editar Persona");  // Llama al método para abrir la ventana modal
     }
 
     /**
@@ -64,7 +82,7 @@ public class HelloController {
      * La ventana se carga desde un archivo FXML, y se pasa la lista de personas
      * al controlador del modal para que pueda agregar una nueva persona a la tabla.
      */
-    private void ventanaModal() {
+    private void ventanaModal(String titulo) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/eu/andreatt/ejercicioe_dein/fxml/modalE.fxml"));
             Parent root = loader.load();
@@ -83,7 +101,7 @@ public class HelloController {
             newStage.setWidth(300);  // Establece el ancho de la ventana
             newStage.setHeight(200);  // Establece la altura de la ventana
             newStage.setScene(newScene);  // Asocia la escena con la ventana
-            newStage.setTitle("Nueva Persona");  // Título de la ventana
+            newStage.setTitle(titulo);  // Título de la ventana
 
             // Mostrar la ventana modal y esperar a que se cierre
             newStage.showAndWait();

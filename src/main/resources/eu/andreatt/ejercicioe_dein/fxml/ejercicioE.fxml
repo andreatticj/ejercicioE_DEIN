@@ -30,6 +30,8 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-      <Button fx:id="btnAgregarPersona" mnemonicParsing="false" onAction="#agregarPersona" text="Agregar Persona" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Button fx:id="btnAgregarPersona" mnemonicParsing="false" onAction="#agregarPersona" text="Agregar Persona" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminar" text="Eliminar Persona" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Button fx:id="btnModificar" mnemonicParsing="false" onAction="#modificar" text="Modificar Persona" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
     </children>
 </GridPane>
