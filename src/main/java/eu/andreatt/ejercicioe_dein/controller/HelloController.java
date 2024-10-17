@@ -1,18 +1,20 @@
-package eu.andreatt.ejerciciod_dein.controller;
+package eu.andreatt.ejercicioe_dein.controller;
 
-import eu.andreatt.ejerciciod_dein.model.Persona;
+import eu.andreatt.ejercicioe_dein.model.Persona;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * Controlador de la interfaz gráfica de la aplicación que gestiona una tabla de personas.
@@ -64,11 +66,11 @@ public class HelloController {
      */
     private void ventanaModal() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/eu/andreatt/ejerciciod_dein/fxml/modalD.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/eu/andreatt/ejercicioe_dein/fxml/modalE.fxml"));
             Parent root = loader.load();
 
             // Obtener el controlador del modal
-            modalDController modalController = loader.getController();
+            modalEController modalController = loader.getController();
 
             // Pasar la lista de personas al controlador del modal
             modalController.setPersonas(tabla.getItems());

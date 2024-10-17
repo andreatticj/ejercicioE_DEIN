@@ -1,4 +1,4 @@
-package eu.andreatt.ejerciciod_dein.application;
+package eu.andreatt.ejercicioe_dein.application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,9 +23,9 @@ public class HelloApplication extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/eu/andreatt/ejerciciod_dein/fxml/ejercicioD.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/eu/andreatt/ejercicioe_dein/fxml/ejercicioE.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 450);
-        Image icon = new Image(getClass().getResourceAsStream("/eu/andreatt/ejerciciod_dein/images/agenda.png"));
+        Image icon = new Image(getClass().getResourceAsStream("/eu/andreatt/ejercicioe_dein/images/agenda.png"));
         stage.getIcons().add(icon);
         stage.setMinHeight(300);
         stage.setMinWidth(350);
