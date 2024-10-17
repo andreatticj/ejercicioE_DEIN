@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -73,7 +70,58 @@ public class HelloController {
     @FXML
     void eliminar(ActionEvent event) {
         // Implementación para eliminar una persona de la tabla
+        Persona personaSeleccionada = tabla.getSelectionModel().getSelectedItem(); // Obtiene la persona seleccionada
 
+        if (personaSeleccionada != null) {
+            confirmarEliminacion(event, personaSeleccionada); // Confirma la eliminación de la persona
+        } else {
+            mostrarAlertError(((Button) event.getSource()).getScene().getWindow(), "Por favor, selecciona una persona para eliminar."); // Muestra error si no hay selección
+        }
+    }
+
+    /**
+     * Confirma la eliminación de la persona seleccionada.
+     *
+     * @param event             El evento que desencadena la acción.
+     * @param personaSeleccionada La persona que se va a eliminar.
+     */
+    private void confirmarEliminacion(ActionEvent event, Persona personaSeleccionada) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION); // Crea una alerta de confirmación
+        alert.setTitle("Confirmar eliminación"); // Título de la alerta
+        alert.setHeaderText(null); // Sin encabezado
+        alert.setContentText("¿Estás seguro de que deseas eliminar a " + personaSeleccionada.getNombre() + "?"); // Contenido de la alerta
+
+        // Muestra la alerta y espera la respuesta
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            tabla.getItems().remove(personaSeleccionada); // Elimina la persona de la lista
+        }
+    }
+
+    /**
+     * Muestra una alerta de error con un mensaje específico.
+     *
+     * @param win   La ventana sobre la que se mostrará la alerta.
+     * @param error El mensaje de error a mostrar.
+     */
+    private void mostrarAlertError(Window win, String error) {
+        mostrarAlert(win, Alert.AlertType.ERROR, "ERROR", error); // Llama al método general para mostrar alerta de error
+    }
+
+    /**
+     * Muestra una alerta de acuerdo al tipo, título y contenido especificados.
+     *
+     * @param win       La ventana sobre la que se mostrará la alerta.
+     * @param alertType El tipo de alerta a mostrar.
+     * @param title     El título de la alerta.
+     * @param content   El contenido de la alerta.
+     */
+    private void mostrarAlert(Window win, Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType); // Crea una nueva alerta
+        alert.initOwner(win); // Establece la ventana principal
+        alert.setHeaderText(null); // Sin encabezado
+        alert.setTitle(title); // Establece el título
+        alert.setContentText(content); // Establece el contenido
+        alert.showAndWait(); // Muestra la alerta y espera a que se cierre
     }
 
     /**
