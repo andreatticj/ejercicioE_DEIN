@@ -28,7 +28,6 @@ public class HelloController {
     @FXML
     private Button btnModificar;  // Botón para modificar una persona seleccionada
 
-
     @FXML
     private TableView<Persona> tabla;  // Tabla que muestra la lista de personas
 
@@ -59,7 +58,7 @@ public class HelloController {
      */
     @FXML
     void agregarPersona(ActionEvent event) {
-        ventanaModal("Nueva Persona");
+        ventanaModal("Nueva Persona", null);  // No pasa una persona ya que estamos creando una nueva
     }
 
     /**
@@ -69,7 +68,6 @@ public class HelloController {
      */
     @FXML
     void eliminar(ActionEvent event) {
-        // Implementación para eliminar una persona de la tabla
         Persona personaSeleccionada = tabla.getSelectionModel().getSelectedItem(); // Obtiene la persona seleccionada
 
         if (personaSeleccionada != null) {
@@ -132,7 +130,13 @@ public class HelloController {
      */
     @FXML
     void modificar(ActionEvent event) {
-        ventanaModal("Editar Persona");
+        Persona personaSeleccionada = tabla.getSelectionModel().getSelectedItem(); // Obtiene la persona seleccionada
+
+        if (personaSeleccionada != null) {
+            ventanaModal("Editar Persona", personaSeleccionada); // Pasa la persona seleccionada al modal
+        } else {
+            mostrarAlertError(((Button) event.getSource()).getScene().getWindow(), "Por favor, selecciona una persona para modificar."); // Muestra error si no hay selección
+        }
     }
 
     /**
@@ -141,8 +145,9 @@ public class HelloController {
      * al controlador del modal para que pueda gestionar los datos.
      *
      * @param titulo El título de la ventana modal.
+     * @param persona La persona a modificar, o null si se está agregando una nueva.
      */
-    private void ventanaModal(String titulo) {
+    private void ventanaModal(String titulo, Persona persona) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/eu/andreatt/ejercicioe_dein/fxml/modalE.fxml"));
             Parent root = loader.load();
@@ -152,6 +157,10 @@ public class HelloController {
 
             // Pasar la lista de personas al controlador del modal
             modalController.setPersonas(tabla.getItems());
+
+            if (persona != null) {
+                modalController.cargarPersona(persona); // Cargar los datos de la persona en el modal
+            }
 
             // Crear la nueva escena y la ventana modal
             Scene newScene = new Scene(root);

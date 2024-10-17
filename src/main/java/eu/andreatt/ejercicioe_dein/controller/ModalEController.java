@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 /**
- * Controlador de la ventana modal para agregar una nueva persona.
+ * Controlador de la ventana modal para agregar o modificar una persona.
  * Permite gestionar la información ingresada y agregarla a una lista de personas,
  * o cancelar la operación y cerrar la ventana.
  */
@@ -57,6 +57,18 @@ public class ModalEController {
     }
 
     /**
+     * Carga los datos de la persona en los campos de texto para su modificación.
+     *
+     * @param persona La persona cuyos datos serán cargados en los campos.
+     */
+    public void cargarPersona(Persona persona) {
+        this.persona = persona;  // Asigna la persona a modificar
+        txtNombre.setText(persona.getNombre());  // Carga el nombre
+        txtApellido.setText(persona.getApellido());  // Carga el apellido
+        txtEdad.setText(String.valueOf(persona.getEdad()));  // Carga la edad
+    }
+
+    /**
      * Maneja el evento de guardar una nueva persona.
      * Verifica que los datos ingresados sean válidos antes de agregar la persona a la lista.
      * Si los datos son válidos, agrega la persona y cierra la ventana.
@@ -73,21 +85,51 @@ public class ModalEController {
             String apellido = txtApellido.getText();
             int edad = Integer.parseInt(txtEdad.getText());
 
-            Persona nuevaPersona = new Persona(nombre, apellido, edad);  // Crea una nueva persona
+            if (persona != null) { // Si estamos editando una persona
+                // Verifica que no exista otra persona con los mismos datos
+                Persona personaEditada = new Persona(nombre, apellido, edad);
+                if (!verificarExistePersona(win, personaEditada)) {
+                    // Actualiza la persona existente
+                    persona.setNombre(nombre);
+                    persona.setApellido(apellido);
+                    persona.setEdad(edad);
+                } else {
+                    cargarPersona(persona);  // Carga nuevamente la persona si ya existe
+                    return; // Si ya existe, no se guarda ni se cierra la ventana
+                }
 
-            // Verificar si la persona ya existe en la lista
-            if (personas.contains(nuevaPersona)) {
-                mostrarAlertError(win, "Esa persona ya existe");  // Muestra alerta si la persona ya está en la lista
-                limpiarCampos();  // Limpia los campos de texto
-            } else {
-                personas.add(nuevaPersona);  // Agrega la nueva persona a la lista
-                limpiarCampos();  // Limpia los campos de texto
-                Stage stage = (Stage) btnCancelar.getScene().getWindow();  // Cierra la ventana actual
-                stage.close();
+            } else { // Si estamos creando una nueva persona
+                Persona nuevaPersona = new Persona(nombre, apellido, edad);  // Crea una nueva persona
+                if (!verificarExistePersona(win, nuevaPersona)) {
+                    personas.add(nuevaPersona);  // Agrega la nueva persona a la lista
+                } else {
+                    return;  // Si ya existe, no hace nada
+                }
             }
+
+            limpiarCampos();  // Limpia los campos de texto
+            Stage stage = (Stage) btnCancelar.getScene().getWindow();  // Cierra la ventana actual
+            stage.close();
         } else {
             mostrarAlertError(win, errores);  // Muestra errores si los hay
         }
+    }
+
+    /**
+     * Verifica si una persona ya existe en la lista.
+     *
+     * @param win La ventana sobre la que se mostrará la alerta.
+     * @param p La persona que se va a verificar.
+     * @return true si la persona ya existe en la lista, false de lo contrario.
+     */
+    private boolean verificarExistePersona(Window win, Persona p) {
+        // Verificar si la persona ya existe en la lista
+        if (personas.contains(p)) {
+            mostrarAlertError(win, "Esa persona ya existe");  // Muestra alerta si la persona ya está en la lista
+            limpiarCampos();  // Limpia los campos de texto
+            return true; // Salir del método para evitar cerrar la ventana
+        }
+        return false;  // La persona no existe
     }
 
     /**
@@ -123,7 +165,7 @@ public class ModalEController {
      * @return El objeto Persona.
      */
     public Persona getPersona() {
-        return persona;
+        return persona;  // Retorna el objeto Persona
     }
 
     /**
@@ -135,17 +177,21 @@ public class ModalEController {
     private String verificarInfo() {
         StringBuilder errores = new StringBuilder();
 
+        // Verifica si el campo Nombre está vacío
         if (txtNombre.getText().isEmpty()) {
             errores.append("El campo Nombre es obligatorio.\n");
         }
 
+        // Verifica si el campo Apellido está vacío
         if (txtApellido.getText().isEmpty()) {
             errores.append("El campo Apellido es obligatorio.\n");
         }
 
+        // Verifica si el campo Edad está vacío
         if (txtEdad.getText().isEmpty()) {
             errores.append("El campo Edad es obligatorio.\n");
         } else {
+            // Verifica que la edad sea un número válido
             try {
                 Integer.parseInt(txtEdad.getText());  // Intenta convertir el campo edad a un número
             } catch (NumberFormatException e) {
