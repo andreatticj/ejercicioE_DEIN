@@ -21,7 +21,7 @@ Este proyecto es una aplicación de escritorio desarrollada en JavaFX para la ge
 
     src/: Carpeta que contiene el código fuente de la aplicación.
         eu/andreatt/ejercicioe_dein/application/: Contiene la clase principal HelloApplication.
-        eu/andreatt/ejercicioe_dein/controller/: Contiene el controlador ´HelloController' y ´ḿodalDController' para la lógica de la interfaz gráfica y el modal.
+        eu/andreatt/ejercicioe_dein/controller/: Contiene el controlador ´HelloController' y ´ModalEController' para la lógica de la interfaz gráfica y el modal.
         eu/andreatt/ejercicioe_dein/model/: Contiene la clase Persona, que define el modelo de datos.
     resources/: Carpeta que contiene los recursos de la aplicación.
         fxml/: Archivos FXML que definen la estructura de la interfaz gráfica.
